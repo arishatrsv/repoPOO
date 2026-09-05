@@ -1,0 +1,117 @@
+@startuml
+
+package personas {
+    class Persona {
+        - edad : byte
+        # nombre : String
+        - deudasAPagar : double
+        - power : IPower
+        - DEUDA_INICIAL : double
+        + Persona()
+        + Persona(pEdad : byte, pNombre : String)
+        + Persona(pNombre : String, pEdad : byte)
+        + Persona(pNombre : String)
+        + getNombre() : String
+        + setNombre(pNombre : String)
+        + getEdad() : byte
+        + setEdad(pEdad : byte)
+        + reducirDeudaConIngreso(pIngreso : double)
+        + cantar()
+        + setPower(pPower : IPower)
+        + atacar()
+    }
+}
+
+package profesiones {
+    class Productor {
+        - cantidadProducciones : int
+        - PRECIO_PRODUCCION : int
+        - IMP_VENTAS : double
+        - dinero : int
+        - nombresCantantes : String[]
+        + vender(pCantidad : int) : int
+        + getDinero() : int
+        + setDinero(pDinero : int)
+        + getCantidadProducciones() : int
+        + setCantidadProducciones(pCantidadProducciones : int)
+        + setNombreFalse()
+        + reducirDeudaConIngreso(pIngreso : double)
+        + escapar()
+    }
+
+    class Pintor {
+        - propiedades : Vector<String>
+        - dineroInvertido : double
+        + comprarPropiedad(pPropiedad : String, pMonto : double)
+        + venderPropiedad(pPropiedad : String, pMonto : double)
+        + getDineroInvertido() : double
+        + setDineroInvertido(pDineroInvertido : double)
+        + getCantidadPropiedades() : int
+    }
+
+    class Cantante {
+        - productores : Vector<Productor>
+        - pintores : Vector<Pintor>
+        + contratarProductor(pProductor : Productor)
+        + contratarPintor(pPintor : Pintor)
+        + getCantidadProductores() : int
+        + getCantidadPintores() : int
+        + despedir(pPersona : Persona)
+    }
+}
+
+package poderes {
+    interface IPower {
+        + dispararPoder()
+    }
+
+    class PoderTelequinesis {
+        + dispararPoder()
+    }
+
+    class PoderTelepatia {
+        + dispararPoder()
+    }
+
+    class PoderHielo {
+        + dispararPoder()
+    }
+
+    class PoderRegeneracion {
+        + dispararPoder()
+    }
+
+    class PoderRayos {
+        + dispararPoder()
+    }
+}
+
+package programaMutante {
+    class quickstart {
+        + main(args : String[])
+    }
+}
+
+Persona <|-- Productor
+Persona <|-- Pintor
+Persona <|-- Cantante
+
+IPower <|.. PoderTelequinesis
+IPower <|.. PoderTelepatia
+IPower <|.. PoderHielo
+IPower <|.. PoderRegeneracion
+IPower <|.. PoderRayos
+
+Persona --> IPower
+
+Cantante --> Productor
+Cantante --> Pintor
+Cantante --> Persona
+
+quickstart --> Persona
+quickstart --> Productor
+quickstart --> Pintor
+quickstart --> Cantante
+quickstart --> IPower
+
+@enduml
