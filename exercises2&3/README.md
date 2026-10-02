@@ -79,6 +79,7 @@ Diagrama de clases
 El siguiente diagrama representa las relaciones entre las clases del proyecto, incluyendo herencia, implementación de la interfaz, asociaciones y organización mediante paquetes.
 
 @startuml
+
 package personas {
     class Persona {
         - edad : byte
@@ -86,6 +87,7 @@ package personas {
         - deudasAPagar : double
         - power : IPower
         - DEUDA_INICIAL : double
+
         + Persona()
         + Persona(pEdad : byte, pNombre : String)
         + Persona(pNombre : String, pEdad : byte)
@@ -100,36 +102,103 @@ package personas {
         + atacar()
     }
 }
+
 package profesiones {
-    class Productor
-    class Pintor
-    class Cantante
+
+    class Productor {
+        - cantidadProducciones : int
+        - PRECIO_PRODUCCION : int
+        - IMP_VENTAS : double
+        - dinero : int
+        - nombresCantantes : String[]
+
+        + vender(pCantidad : int) : int
+        + getDinero() : int
+        + setDinero(pDinero : int)
+        + getCantidadProducciones() : int
+        + setCantidadProducciones(pCantidadProducciones : int)
+        + setNombreFalse()
+        + reducirDeudaConIngreso(pIngreso : double)
+        + escapar()
+    }
+
+    class Pintor {
+        - propiedades : Vector<String>
+        - dineroInvertido : double
+
+        + comprarPropiedad(pPropiedad : String, pMonto : double)
+        + venderPropiedad(pPropiedad : String, pMonto : double)
+        + getDineroInvertido() : double
+        + setDineroInvertido(pDineroInvertido : double)
+        + getCantidadPropiedades() : int
+    }
+
+    class Cantante {
+        - productores : Vector<Productor>
+        - pintores : Vector<Pintor>
+
+        + contratarProductor(pProductor : Productor)
+        + contratarPintor(pPintor : Pintor)
+        + getCantidadProductores() : int
+        + getCantidadPintores() : int
+        + despedir(pPersona : Persona)
+    }
 }
+
 package poderes {
-    interface IPower
-    class PoderTelequinesis
-    class PoderTelepatia
-    class PoderHielo
-    class PoderRegeneracion
-    class PoderRayos
+
+    interface IPower {
+        + dispararPoder()
+    }
+
+    class PoderTelequinesis {
+        + dispararPoder()
+    }
+
+    class PoderTelepatia {
+        + dispararPoder()
+    }
+
+    class PoderHielo {
+        + dispararPoder()
+    }
+
+    class PoderRegeneracion {
+        + dispararPoder()
+    }
+
+    class PoderRayos {
+        + dispararPoder()
+    }
 }
+
 package programaMutante {
-    class quickstart
+
+    class quickstart {
+        + main(args : String[])
+    }
 }
+
 Persona <|-- Productor
 Persona <|-- Pintor
 Persona <|-- Cantante
+
 IPower <|.. PoderTelequinesis
 IPower <|.. PoderTelepatia
 IPower <|.. PoderHielo
 IPower <|.. PoderRegeneracion
 IPower <|.. PoderRayos
+
 Persona --> IPower
+
 Cantante --> Productor
 Cantante --> Pintor
+Cantante --> Persona
+
 quickstart --> Persona
 quickstart --> Productor
 quickstart --> Pintor
 quickstart --> Cantante
 quickstart --> IPower
+
 @enduml
